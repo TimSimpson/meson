@@ -433,7 +433,10 @@ class BoostDependency(Dependency):
             else:
                 self.incdir = '/usr/include'
         else:
-            self.incdir = os.path.join(self.boost_root, 'include')
+            if mesonlib.is_windows():
+                self.incdir = os.path.join(self.boost_root)
+            else:
+                self.incdir = os.path.join(self.boost_root, 'include')
         self.boost_inc_subdir = os.path.join(self.incdir, 'boost')
         mlog.debug('Boost library root dir is', self.boost_root)
         self.src_modules = {}
